@@ -9,6 +9,8 @@ namespace FirstWebMVC.Data
         {}
         public DbSet<Person>Person{get;set;}
         public DbSet<Lop>Lop{get;set;}
+
+        public DbSet<Sinhvien>Sinhvien{get;set;}
         
         
     }
