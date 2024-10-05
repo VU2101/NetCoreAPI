@@ -12,6 +12,6 @@ namespace FirstWebMVC.Data
 
         public DbSet<Sinhvien>Sinhvien{get;set;}
         
-        
+         public DbSet<Customer>Customers{get;set;}
     }
 }
