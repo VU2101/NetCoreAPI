@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Models;
+using firstWebMVC.model;
 
 namespace FirstWebMVC.Data
 {
@@ -13,5 +14,7 @@ namespace FirstWebMVC.Data
         public DbSet<Sinhvien>Sinhvien{get;set;}
         
          public DbSet<Customer>Customers{get;set;}
+         public DbSet<Dangnhap>Dangnhap{get;set;}
+         public DbSet<Nhapvao>Nhapvao{get;set;}
     }
 }

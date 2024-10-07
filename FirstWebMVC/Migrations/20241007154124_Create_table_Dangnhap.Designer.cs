@@ -2,6 +2,7 @@
 using FirstWebMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstWebMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241007154124_Create_table_Dangnhap")]
+    partial class Create_table_Dangnhap
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -38,11 +41,6 @@ namespace FirstWebMVC.Migrations
                     b.Property<string>("CCCD")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Hoten")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -54,10 +52,6 @@ namespace FirstWebMVC.Migrations
                     b.HasKey("CCCD");
 
                     b.ToTable("Dangnhap");
-
-                    b.HasDiscriminator().HasValue("Dangnhap");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("FirstWebMVC.Models.Lop", b =>
@@ -106,21 +100,6 @@ namespace FirstWebMVC.Migrations
                     b.HasKey("nguoi");
 
                     b.ToTable("Sinhvien");
-                });
-
-            modelBuilder.Entity("firstWebMVC.model.Nhapvao", b =>
-                {
-                    b.HasBaseType("FirstWebMVC.Models.Dangnhap");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Masinhvien")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Nhapvao");
                 });
 #pragma warning restore 612, 618
         }
