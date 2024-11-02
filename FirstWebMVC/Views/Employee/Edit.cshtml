@@ -1,4 +1,4 @@
-@model FirstWebMVC.Models.Person
+@model FirstWebMVC.Models.Employee
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,12 +6,22 @@
 
 <h1>Edit</h1>
 
-<h4>Person</h4>
+<h4>Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CCCD" class="control-label"></label>
+                <input asp-for="CCCD" class="form-control" />
+                <span asp-validation-for="CCCD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
             <input type="hidden" asp-for="PersonID" />
             <div class="form-group">
                 <label asp-for="Hoten" class="control-label"></label>

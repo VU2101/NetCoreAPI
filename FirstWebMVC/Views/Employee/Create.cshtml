@@ -1,4 +1,4 @@
-@model FirstWebMVC.Models.Person
+@model FirstWebMVC.Models.Employee
 
 @{
     ViewData["Title"] = "Create";
@@ -6,22 +6,22 @@
 
 <h1>Create</h1>
 
-<h4>Person</h4>
-<hr />
-  <form asp-action="Upload" enctype="multipart/form-data">
-        <div class="row form-control">
-            <label class="col-sm-2">Import data from Excel:</label>
-            <input type="file" name="file" class="col-sm-4">
-            <input type="submit" value="Upload" class="btn btn-primary">
-        </div>
-    </form>
-
-<h4>Person</h4>
+<h4>Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CCCD" class="control-label"></label>
+                <input asp-for="CCCD" class="form-control" />
+                <span asp-validation-for="CCCD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="PersonID" class="control-label"></label>
                 <input asp-for="PersonID" class="form-control" />
