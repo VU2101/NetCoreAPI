@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
 using FirstWebMVC.Models;
 using FirstWebMVC.Models.Process;
+using OfficeOpenXml;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace FirstWebMVC.Controllers
 {
@@ -20,13 +23,29 @@ namespace FirstWebMVC.Controllers
             _context = context;
         }
          private ExcelProcess _excelProcess = new ExcelProcess();
+          public async Task<IActionResult> Index(int? page, int? PageSize)
+        {
+            ViewBag.PageSize = new List<SelectListItem>()
+            {
+                new SelectListItem(){ Value="3", Text="3"},
+                new SelectListItem(){ Value="5", Text="5"},
+                new SelectListItem(){ Value="10", Text="10"},
+                new SelectListItem(){ Value="15", Text="15"},
+                new SelectListItem(){ Value="25", Text="25"},
+                new SelectListItem(){ Value="50", Text="50"},
+            };
+            int pagesize = (PageSize ?? 3);
+            ViewBag.psize = pagesize;
+            var model = _context.Person.ToList().ToPagedList(page ?? 1, pagesize);
+            return View(model);
+        }
 
 
         // GET: Person
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Person.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+          //  return View(await _context.Person.ToListAsync());
+        //}
 
         // GET: Person/Details/5
         public async Task<IActionResult> Details(string id)
@@ -201,7 +220,35 @@ namespace FirstWebMVC.Controllers
                 }
             
             return View();
-    }}
-}   
+    }
+     public async Task<IActionResult> DownLoad()
+        {
+            // Đặt tên cho file khi tải xuống
+            var fileName = "Person.xlsx";
+
+            // Sử dụng "using" để đảm bảo ExcelPackage được giải phóng tài nguyên sau khi sử dụng
+            using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet 1");
+
+                // Đặt tiêu đề cho các cột
+                worksheet.Cells["A1"].Value = "PersonID";
+                worksheet.Cells["B1"].Value = "Hoten";
+                worksheet.Cells["C1"].Value = "Quequan";
+
+                // Lấy danh sách Person
+                var personList = _context.Person.ToList();
+
+                worksheet.Cells["A2"].LoadFromCollection(personList, false, OfficeOpenXml.Table.TableStyles.Medium2);
+
+                var stream = new MemoryStream(await excelPackage.GetAsByteArrayAsync());
+
+                // Tải file xuống
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+        }}
+}
+
+    
     
 
